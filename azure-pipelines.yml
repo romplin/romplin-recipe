@@ -30,8 +30,7 @@ stages:
 
     - script: |
         go build -o webapp webapp.go
-        go build -o mcp-server romplin-recipe.go
-      displayName: 'Build applications'
+      displayName: 'Build webapp'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
 
     - script: |
@@ -76,7 +75,7 @@ stages:
             displayName: 'Deploy to Azure Container Instances'
             inputs:
               azureSubscription: '$(azureSubscription)'
-              resourceGroupName: 'rg-recipe-app'
+              resourceGroupName: 'romplin_Resource_Group'
               location: 'East US'
               containerInstanceName: 'recipe-extractor'
               imageSource: 'ContainerRegistry'

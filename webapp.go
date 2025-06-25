@@ -1,14 +1,14 @@
 package main
 
 import (
-    "encoding/json"
     "fmt"
     "html/template"
     "log"
     "net/http"
     "os"
-    "os/exec"
     "strings"
+
+    "github.com/PuerkitoBio/goquery"
 )
 
 type Recipe struct {
@@ -79,53 +79,42 @@ func extractHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
     
-    // Call the MCP server to extract recipe
-    cmd := exec.Command("go", "run", "romplin-recipe.go")
-    cmd.Stdin = strings.NewReader(fmt.Sprintf(`{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "extract_recipe", "arguments": {"url": "%s"}}}`, url))
-    
-    output, err := cmd.Output()
+    // Fetch and parse the recipe directly
+    resp, err := http.Get(url)
     if err != nil {
-        log.Printf("Error calling MCP server: %v", err)
+        log.Printf("Error fetching URL: %v", err)
         w.WriteHeader(http.StatusInternalServerError)
-        fmt.Fprintf(w, `<div class="recipe"><p style="color: red;">Error extracting recipe: %v</p></div>`, err)
+        fmt.Fprintf(w, `<div class="recipe"><p style="color: red;">Error fetching recipe: %v</p></div>`, err)
         return
     }
-    
-    // Parse the MCP response
-    var response struct {
-        Result struct {
-            Content []struct {
-                Text string `json:"text"`
-            } `json:"content"`
-        } `json:"result"`
-    }
-    
-    if err := json.Unmarshal(output, &response); err != nil {
-        log.Printf("Error parsing MCP response: %v", err)
+    defer resp.Body.Close()
+
+    doc, err := goquery.NewDocumentFromReader(resp.Body)
+    if err != nil {
+        log.Printf("Error parsing HTML: %v", err)
         w.WriteHeader(http.StatusInternalServerError)
-        fmt.Fprintf(w, `<div class="recipe"><p style="color: red;">Error parsing response</p></div>`)
+        fmt.Fprintf(w, `<div class="recipe"><p style="color: red;">Error parsing recipe page</p></div>`)
         return
     }
-    
-    if len(response.Result.Content) == 0 {
-        fmt.Fprintf(w, `<div class="recipe"><p>No recipe found at this URL</p></div>`)
-        return
-    }
-    
-    recipeText := response.Result.Content[0].Text
-    parts := strings.Split(recipeText, "\n\nDIRECTIONS:")
-    
-    var ingredients, directions []string
-    
-    if len(parts) > 0 {
-        ingredientsText := strings.TrimPrefix(parts[0], "INGREDIENTS:\n")
-        ingredients = strings.Split(ingredientsText, "\n")
-    }
-    
-    if len(parts) > 1 {
-        directionsText := strings.TrimSpace(parts[1])
-        directions = strings.Split(directionsText, "\n")
-    }
+
+    var ingredients []string
+    var directions []string
+
+    // Common selectors for ingredients
+    doc.Find("li[itemprop='recipeIngredient'], .recipe-ingredient, .ingredients li, [data-ingredient], .ingredient").Each(func(i int, s *goquery.Selection) {
+        text := strings.TrimSpace(s.Text())
+        if text != "" {
+            ingredients = append(ingredients, text)
+        }
+    })
+
+    // Common selectors for directions/instructions
+    doc.Find("li[itemprop='recipeInstructions'], .recipe-instruction, .instructions li, [data-instruction], .instruction, .directions li").Each(func(i int, s *goquery.Selection) {
+        text := strings.TrimSpace(s.Text())
+        if text != "" {
+            directions = append(directions, text)
+        }
+    })
     
     // Generate HTML response
     html := `<div class="recipe">`
