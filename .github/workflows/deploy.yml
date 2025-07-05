@@ -1,0 +1,57 @@
+name: Deploy to Hetzner
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.22'
+    - name: Build and Deploy
+      env:
+        HETZNER_HOST: ${{ secrets.HETZNER_HOST }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        # Build the application
+        go build -o romplin-recipe webapp.go
+        # Package files
+        tar -czf deploy.tar.gz romplin-recipe webapp.go webapp/ nginx/*
+        # Setup SSH
+        echo "$SSH_PRIVATE_KEY" > deploy_key
+        chmod 600 deploy_key
+        # Deploy to Hetzner
+        scp -i deploy_key -o StrictHostKeyChecking=no deploy.tar.gz root@$HETZNER_HOST:/tmp/
+        ssh -i deploy_key -o StrictHostKeyChecking=no root@$HETZNER_HOST "
+          cd /tmp
+          tar -xzf deploy.tar.gz
+          
+          # Stop service
+          systemctl stop romplin-recipe
+          
+          # Create directories
+          mkdir -p /var/www/romplin-recipe
+          mkdir -p /opt/romplin-recipe
+          
+          # Update application
+          rm -rf /var/www/romplin-recipe/*
+          cp -r romplin-recipe webapp.go webapp /var/www/romplin-recipe/
+          
+          # Set proper ownership
+          chown -R www-data:www-data /var/www/romplin-recipe
+          
+          # Update nginx config
+          cp nginx/romplin-recipe.conf /etc/nginx/conf.d/
+          systemctl restart nginx
+          
+          # Start service
+          systemctl start romplin-recipe
+          
+          # Cleanup
+          rm -rf /tmp/deploy.tar.gz /tmp/romplin-recipe /tmp/webapp.go /tmp/webapp /tmp/nginx
+        "
