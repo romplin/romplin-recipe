@@ -33,9 +33,52 @@ font-weight: 400;
 line-height: 1.6;
 background-color: var(--light-grey);
 color: var(--darker-grey);
-max-width: 800px;
-margin: 0 auto;
+margin: 0;
 padding: 20px;
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: flex-start;
+}
+
+/* Main container for centered layout */
+.container {
+width: 100%;
+max-width: 800px;
+text-align: center;
+}
+
+/* Logo styling */
+.logo-container {
+margin-bottom: 2rem;
+}
+
+.logo {
+max-width: 200px;
+height: auto;
+border-radius: var(--border-radius);
+box-shadow: var(--shadow-light);
+}
+
+/* If logo doesn't exist, show placeholder */
+.logo:not([src*=".png"]):not([src*=".jpg"]):not([src*=".jpeg"]):not([src*=".svg"]),
+.logo[src="/static/logo.png"]:not([src*="data:"]) {
+display: inline-block;
+width: 200px;
+height: 80px;
+background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+border-radius: var(--border-radius);
+box-shadow: var(--shadow-light);
+color: white;
+font-weight: bold;
+font-size: 1.5rem;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.logo[src="/static/logo.png"]:not([src*="data:"]):before {
+content: "ROMPLIN RECIPE";
 }
 
 /* Typography improvements */
@@ -45,15 +88,32 @@ font-weight: 600;
 letter-spacing: -0.02em;
 margin-bottom: 1rem;
 color: var(--darker-grey);
+text-align: center;
 }
 
-h1 { font-size: 2.5rem; }
+h1 { 
+font-size: 2.5rem; 
+margin-bottom: 2rem;
+background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
 h2 { font-size: 2rem; }
 h3 { font-size: 1.75rem; }
 
 /* Form styling */
+form {
+background: var(--white);
+padding: 2rem;
+border-radius: var(--border-radius);
+box-shadow: var(--shadow-medium);
+margin-bottom: 2rem;
+}
+
 .form-group {
 margin-bottom: 20px;
+text-align: left;
 }
 
 label {
@@ -61,6 +121,7 @@ display: block;
 margin-bottom: 5px;
 font-weight: 500;
 color: var(--darker-grey);
+text-align: left;
 }
 
 input[type="url"] {
@@ -84,7 +145,7 @@ button {
 font-family: var(--toyota-font);
 font-weight: 500;
 letter-spacing: 0.02em;
-padding: 0.75rem 1.5rem;
+padding: 0.75rem 2rem;
 background: linear-gradient(135deg, var(--primary-green), var(--light-green));
 color: white;
 border: none;
@@ -92,6 +153,8 @@ border-radius: var(--border-radius);
 cursor: pointer;
 transition: var(--transition);
 box-shadow: var(--shadow-light);
+font-size: 1.1rem;
+margin-top: 1rem;
 }
 
 button:hover {
@@ -105,8 +168,9 @@ box-shadow: var(--shadow-medium);
 margin-top: 20px;
 background: var(--white);
 border-radius: var(--border-radius);
-box-shadow: var(--shadow-light);
+box-shadow: var(--shadow-medium);
 overflow: hidden;
+text-align: left;
 }
 
 .ingredients, .directions {
@@ -120,6 +184,7 @@ font-weight: 600;
 margin-bottom: 1rem;
 border-bottom: 2px solid var(--primary-green);
 padding-bottom: 0.5rem;
+text-align: center;
 }
 
 .ingredients ul, .directions ol {
@@ -138,6 +203,10 @@ color: var(--primary-grey);
 font-style: italic;
 text-align: center;
 padding: 2rem;
+background: var(--white);
+border-radius: var(--border-radius);
+box-shadow: var(--shadow-light);
+margin-top: 1rem;
 }
 
 /* HTMX indicator */
@@ -164,13 +233,25 @@ body {
 padding: 10px;
 }
 
+.container {
+max-width: 100%;
+}
+
+.logo {
+max-width: 150px;
+}
+
 h1 { font-size: 2rem; }
 h2 { font-size: 1.75rem; }
 h3 { font-size: 1.5rem; }
 
+form {
+padding: 1.5rem;
+}
+
 button {
-padding: 0.6rem 1.2rem;
-font-size: 0.9rem;
+padding: 0.6rem 1.5rem;
+font-size: 1rem;
 }
 
 .ingredients, .directions {
