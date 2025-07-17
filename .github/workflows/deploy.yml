@@ -20,11 +20,14 @@ jobs:
       run: |
         # Build the application
         go build -o romplin-recipe webapp.go
-        # Package files
-        tar -czf deploy.tar.gz romplin-recipe webapp.go webapp/ nginx/*
+        
+        # Package files including all static assets
+        tar -czf deploy.tar.gz romplin-recipe static/ nginx/*
+        
         # Setup SSH
         echo "$SSH_PRIVATE_KEY" > deploy_key
         chmod 600 deploy_key
+        
         # Deploy to Hetzner
         scp -i deploy_key -o StrictHostKeyChecking=no deploy.tar.gz root@$HETZNER_HOST:/tmp/
         ssh -i deploy_key -o StrictHostKeyChecking=no root@$HETZNER_HOST "
@@ -32,26 +35,48 @@ jobs:
           tar -xzf deploy.tar.gz
           
           # Stop service
-          systemctl stop romplin-recipe
+          systemctl stop romplin-recipe || true
           
           # Create directories
           mkdir -p /var/www/romplin-recipe
           mkdir -p /opt/romplin-recipe
           
-          # Update application
-          rm -rf /var/www/romplin-recipe/*
-          cp -r romplin-recipe webapp.go webapp /var/www/romplin-recipe/
+          # Backup current deployment (optional)
+          if [ -d /var/www/romplin-recipe ]; then
+            rm -rf /var/www/romplin-recipe.backup
+            mv /var/www/romplin-recipe /var/www/romplin-recipe.backup
+          fi
           
-          # Set proper ownership
+          # Create fresh deployment directory
+          mkdir -p /var/www/romplin-recipe
+          
+          # Copy application and preserve directory structure
+          cp romplin-recipe /var/www/romplin-recipe/
+          cp -r static /var/www/romplin-recipe/
+          
+          # Set proper ownership and permissions
           chown -R www-data:www-data /var/www/romplin-recipe
+          chmod +x /var/www/romplin-recipe/romplin-recipe
+          
+          # Set proper permissions for static files
+          find /var/www/romplin-recipe/static -type f -exec chmod 644 {} \;
+          find /var/www/romplin-recipe/static -type d -exec chmod 755 {} \;
           
           # Update nginx config
           cp nginx/romplin-recipe.conf /etc/nginx/conf.d/
-          systemctl restart nginx
+          nginx -t && systemctl restart nginx
           
           # Start service
           systemctl start romplin-recipe
+          systemctl enable romplin-recipe
+          
+          # Verify service is running
+          sleep 2
+          systemctl status romplin-recipe --no-pager
           
           # Cleanup
-          rm -rf /tmp/deploy.tar.gz /tmp/romplin-recipe /tmp/webapp.go /tmp/webapp /tmp/nginx
+          rm -rf /tmp/deploy.tar.gz /tmp/romplin-recipe /tmp/static /tmp/nginx
         "
+        
+        # Cleanup local files
+        rm -f deploy_key deploy.tar.gz
