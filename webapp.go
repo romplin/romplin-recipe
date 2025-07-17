@@ -19,6 +19,7 @@ type Recipe struct {
 func main() {
     http.HandleFunc("/", homeHandler)
     http.HandleFunc("/extract", extractHandler)
+    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
     
     port := os.Getenv("PORT")
     if port == "" {
@@ -35,18 +36,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 <head>
     <title>Recipe Extractor</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .form-group { margin-bottom: 20px; }
-        input[type="url"] { width: 100%; padding: 10px; font-size: 16px; }
-        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
-        button:hover { background: #0056b3; }
-        .recipe { margin-top: 20px; }
-        .ingredients, .directions { margin-bottom: 20px; }
-        .ingredients h3, .directions h3 { color: #333; }
-        .ingredients ul, .directions ol { padding-left: 20px; }
-        .loading { color: #666; font-style: italic; }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <h1>Recipe Extractor</h1>

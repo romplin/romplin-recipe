@@ -1,0 +1,199 @@
+/* Import Toyota logo-inspired font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+/* Romplin Recipe - Green, Grey, Black, White Only Color Scheme */
+:root {
+--primary-green: #28a745;
+--dark-green: #1e7e34;
+--light-green: #34ce57;
+--primary-grey: #6c757d;
+--light-grey: #f8f9fa;
+--dark-grey: #495057;
+--darker-grey: #343a40;
+--black: #000000;
+--white: #ffffff;
+--border-color: #dee2e6;
+--shadow-light: 0 2px 4px rgba(0,0,0,0.1);
+--shadow-medium: 0 4px 6px rgba(0,0,0,0.1);
+--shadow-heavy: 0 8px 25px rgba(0,0,0,0.15);
+--border-radius: 8px;
+--transition: all 0.3s ease;
+--toyota-font: 'Roboto Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Apply Toyota-inspired font site-wide with ALL CAPS */
+* {
+font-family: var(--toyota-font) !important;
+text-transform: uppercase !important;
+}
+
+body {
+font-family: var(--toyota-font);
+font-weight: 400;
+line-height: 1.6;
+background-color: var(--light-grey);
+color: var(--darker-grey);
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--toyota-font);
+font-weight: 600;
+letter-spacing: -0.02em;
+margin-bottom: 1rem;
+color: var(--darker-grey);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+
+/* Form styling */
+.form-group {
+margin-bottom: 20px;
+}
+
+label {
+display: block;
+margin-bottom: 5px;
+font-weight: 500;
+color: var(--darker-grey);
+}
+
+input[type="url"] {
+width: 100%;
+padding: 0.75rem 1rem;
+font-size: 16px;
+border: 1px solid var(--border-color);
+border-radius: var(--border-radius);
+transition: var(--transition);
+box-sizing: border-box;
+}
+
+input[type="url"]:focus {
+border-color: var(--primary-green);
+box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+outline: none;
+}
+
+/* Enhanced button styles */
+button {
+font-family: var(--toyota-font);
+font-weight: 500;
+letter-spacing: 0.02em;
+padding: 0.75rem 1.5rem;
+background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+color: white;
+border: none;
+border-radius: var(--border-radius);
+cursor: pointer;
+transition: var(--transition);
+box-shadow: var(--shadow-light);
+}
+
+button:hover {
+background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
+transform: translateY(-1px);
+box-shadow: var(--shadow-medium);
+}
+
+/* Recipe display styling */
+.recipe {
+margin-top: 20px;
+background: var(--white);
+border-radius: var(--border-radius);
+box-shadow: var(--shadow-light);
+overflow: hidden;
+}
+
+.ingredients, .directions {
+margin-bottom: 20px;
+padding: 1.5rem;
+}
+
+.ingredients h3, .directions h3 {
+color: var(--darker-grey);
+font-weight: 600;
+margin-bottom: 1rem;
+border-bottom: 2px solid var(--primary-green);
+padding-bottom: 0.5rem;
+}
+
+.ingredients ul, .directions ol {
+padding-left: 20px;
+margin: 0;
+}
+
+.ingredients li, .directions li {
+margin-bottom: 0.5rem;
+line-height: 1.5;
+}
+
+/* Loading state */
+.loading {
+color: var(--primary-grey);
+font-style: italic;
+text-align: center;
+padding: 2rem;
+}
+
+/* HTMX indicator */
+.htmx-indicator {
+display: none;
+}
+
+.htmx-request .htmx-indicator {
+display: block;
+}
+
+/* Error styling */
+.recipe p[style*="color: red"] {
+color: var(--darker-grey) !important;
+background-color: rgba(73, 80, 87, 0.1);
+padding: 1rem;
+border-radius: var(--border-radius);
+border-left: 4px solid var(--dark-grey);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+body {
+padding: 10px;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+
+button {
+padding: 0.6rem 1.2rem;
+font-size: 0.9rem;
+}
+
+.ingredients, .directions {
+padding: 1rem;
+}
+}
+
+/* Utility classes */
+.text-gradient {
+background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.border-green {
+border-color: var(--primary-green) !important;
+}
+
+.bg-gradient-green {
+background: linear-gradient(135deg, var(--primary-green), var(--light-green)) !important;
+}
+
+.shadow-custom {
+box-shadow: var(--shadow-medium) !important;
+}
