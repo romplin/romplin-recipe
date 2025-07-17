@@ -73,6 +73,9 @@ jobs:
           # Verify service is running
           sleep 2
           systemctl status romplin-recipe --no-pager
+        # Debug service issues
+          journalctl -u romplin-recipe --no-pager -l
+          netstat -tulpn | grep :8080
           
           # Cleanup
           rm -rf /tmp/deploy.tar.gz /tmp/romplin-recipe /tmp/static /tmp/nginx
