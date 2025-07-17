@@ -39,17 +39,22 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Recipe Extractor</h1>
-    <form hx-post="/extract" hx-target="#recipe-result" hx-indicator="#loading">
-        <div class="form-group">
-            <label for="url">Recipe URL:</label>
-            <input type="url" id="url" name="url" placeholder="https://example.com/recipe" required>
+    <div class="container">
+        <div class="logo-container">
+            <img src="/static/logo.png" alt="Romplin Recipe Logo" class="logo">
         </div>
-        <button type="submit">Extract Recipe</button>
-    </form>
-    
-    <div id="loading" class="htmx-indicator loading">Extracting recipe...</div>
-    <div id="recipe-result"></div>
+        <h1>Recipe Extractor</h1>
+        <form hx-post="/extract" hx-target="#recipe-result" hx-indicator="#loading">
+            <div class="form-group">
+                <label for="url">Recipe URL:</label>
+                <input type="url" id="url" name="url" placeholder="https://example.com/recipe" required>
+            </div>
+            <button type="submit">Extract Recipe</button>
+        </form>
+        
+        <div id="loading" class="htmx-indicator loading">Extracting recipe...</div>
+        <div id="recipe-result"></div>
+    </div>
 </body>
 </html>`
     
