@@ -32,32 +32,57 @@ func main() {
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
     tmpl := `<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Recipe Extractor</title>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>romplin-recipe</title>
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <img src="/static/logo.png" alt="Romplin Recipe Logo" class="logo">
-        </div>
-        <h1>Recipe Extractor</h1>
-        <form hx-post="/extract" hx-target="#recipe-result" hx-indicator="#loading">
-            <div class="form-group">
-                <label for="url">Recipe URL:</label>
-                <input type="url" id="url" name="url" placeholder="https://example.com/recipe" required>
+    <div class="content-wrapper">
+        <div class="hero">
+            <div class="logo-placeholder">
+                <img src="/static/logo.png" alt="romplin-recipe logo">
             </div>
-            <button type="submit">Extract Recipe</button>
-        </form>
-        
-        <div id="loading" class="htmx-indicator loading">Extracting recipe...</div>
+            <h1>romplin-recipe</h1>
+            <div class="tagline">extract recipes from any website</div>
+            <div class="nav-links">
+                <a href="https://romplin-labs.com">romplin-labs</a>
+                <a href="https://romplin-arena.com">romplin-arena</a>
+            </div>
+        </div>
+
+        <section class="extraction-section">
+            <h2>extract recipe</h2>
+            <form class="extraction-form" hx-post="/extract" hx-target="#recipe-result" hx-indicator="#loading">
+                <div class="form-group">
+                    <label for="url">recipe url</label>
+                    <input type="url" id="url" name="url" placeholder="https://example.com/recipe" required>
+                </div>
+                <button type="submit" class="submit-btn">extract recipe</button>
+            </form>
+            <div id="loading" class="htmx-indicator loading">extracting recipe...</div>
+        </section>
+
         <div id="recipe-result"></div>
+
+        <footer>
+            <div class="social-links">
+                <a href="https://github.com/romplin" target="_blank">github</a>
+                <a href="https://x.com/romplin333" target="_blank">x</a>
+                <a href="https://discord.gg/4WeS3ddPVq" target="_blank">discord</a>
+            </div>
+            <p>© 2025 romplin-labs.</p>
+        </footer>
     </div>
 </body>
 </html>`
-    
+
     t, _ := template.New("home").Parse(tmpl)
     t.Execute(w, nil)
 }
