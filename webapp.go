@@ -49,7 +49,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
             <div class="logo-placeholder">
                 <img src="/static/logo.png" alt="romplin-recipe logo">
             </div>
-            <h1>romplin-reci</h1>
+            <h1>romplin-recipe</h1>
             <div class="tagline">extract recipes from any website</div>
         </div>
 
