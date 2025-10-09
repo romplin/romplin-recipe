@@ -1,0 +1,22 @@
+[Unit]
+Description=Romplin Recipe Web Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/romplin-recipe
+ExecStart=/var/www/romplin-recipe/romplin-recipe
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=romplin-recipe
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

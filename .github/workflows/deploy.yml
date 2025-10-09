@@ -22,7 +22,7 @@ jobs:
         go build -o romplin-recipe webapp.go
         
         # Package files including all static assets
-        tar -czf deploy.tar.gz romplin-recipe static/ nginx/*
+        tar -czf deploy.tar.gz romplin-recipe static/ nginx/* .github/systemd/*
         
         # Setup SSH
         echo "$SSH_PRIVATE_KEY" > deploy_key
@@ -62,13 +62,17 @@ jobs:
           find /var/www/romplin-recipe/static -type f -exec chmod 644 {} \;
           find /var/www/romplin-recipe/static -type d -exec chmod 755 {} \;
           
+          # Install systemd service file
+          cp .github/systemd/romplin-recipe.service /etc/systemd/system/
+          systemctl daemon-reload
+
           # Update nginx config
           cp nginx/romplin-recipe.conf /etc/nginx/conf.d/
           nginx -t && systemctl restart nginx
-          
+
           # Start service
-          systemctl start romplin-recipe
           systemctl enable romplin-recipe
+          systemctl start romplin-recipe
           
           # Verify service is running
           sleep 2
@@ -78,7 +82,7 @@ jobs:
           netstat -tulpn | grep :8080
           
           # Cleanup
-          rm -rf /tmp/deploy.tar.gz /tmp/romplin-recipe /tmp/static /tmp/nginx
+          rm -rf /tmp/deploy.tar.gz /tmp/romplin-recipe /tmp/static /tmp/nginx /tmp/.github
         "
         
         # Cleanup local files
