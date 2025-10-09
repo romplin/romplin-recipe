@@ -51,10 +51,6 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
             </div>
             <h1>romplin-recipe</h1>
             <div class="tagline">extract recipes from any website</div>
-            <div class="nav-links">
-                <a href="https://romplin-labs.com">romplin-labs</a>
-                <a href="https://romplin-arena.com">romplin-arena</a>
-            </div>
         </div>
 
         <section class="extraction-section">
