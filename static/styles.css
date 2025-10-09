@@ -1,6 +1,3 @@
-/* romplin-labs brand styling - dark theme with green accents */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -25,8 +22,9 @@ body {
     width: 100%;
 }
 
-/* Hero/Header section */
 .hero {
+    max-width: 700px;
+    width: 100%;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -56,33 +54,12 @@ body {
     margin-bottom: 1.5em;
 }
 
-.hero .nav-links {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 1em;
-}
-
-.hero .nav-links a {
-    color: #22c55e;
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: 500;
-    transition: opacity 0.3s;
-}
-
-.hero .nav-links a:hover {
-    opacity: 0.7;
-    text-decoration: underline;
-}
-
-/* Main extraction section */
 .extraction-section {
     background: #1a1a1a;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #3a3a3a;
-    margin-bottom: 1em;
+    margin-bottom: 20px;
 }
 
 .extraction-section h2 {
@@ -92,7 +69,6 @@ body {
     font-size: 1.3em;
 }
 
-/* Form styling */
 .extraction-form {
     max-width: 450px;
     margin: 0 auto;
@@ -150,85 +126,102 @@ body {
     transform: translateY(-2px);
 }
 
-/* Loading indicator */
 .loading {
-    margin-top: 0.8rem;
-    padding: 10px;
-    border-radius: 5px;
+    display: none;
     text-align: center;
-    background: #1a1a1a;
+    margin-top: 0.8rem;
     color: #22c55e;
-    border: 1px solid #3a3a3a;
     font-size: 0.9em;
 }
 
-.htmx-indicator {
-    display: none;
-}
-
-.htmx-request .htmx-indicator {
+.loading.htmx-request {
     display: block;
-}
-
-/* Recipe results section */
-#recipe-result {
-    margin-top: 1em;
 }
 
 .recipe {
     background: #1a1a1a;
+    padding: 20px;
     border-radius: 8px;
     border: 1px solid #3a3a3a;
-    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-.ingredients,
-.directions {
-    padding: 1.5rem;
+.recipe h3 {
+    color: #22c55e;
+    margin-bottom: 0.8em;
+    font-size: 1.2em;
+}
+
+.recipe .ingredients {
+    margin-bottom: 1.5em;
+}
+
+.recipe .ingredients ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.recipe .ingredients li {
+    padding: 6px 0;
+    color: #fff;
+    font-size: 0.95em;
     border-bottom: 1px solid #3a3a3a;
 }
 
-.directions {
+.recipe .ingredients li:last-child {
     border-bottom: none;
 }
 
-.ingredients h3,
-.directions h3 {
+.recipe .ingredients li:before {
+    content: "•";
     color: #22c55e;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 1.1em;
-    text-align: left;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-right: 0.5em;
 }
 
-.ingredients ul,
-.directions ol {
-    padding-left: 20px;
-    margin: 0;
+.recipe .directions {
+    margin-bottom: 0;
+}
+
+.recipe .directions ol {
+    list-style: none;
+    counter-reset: step-counter;
+    padding-left: 0;
+}
+
+.recipe .directions li {
+    counter-increment: step-counter;
+    padding: 10px 0;
     color: #fff;
-}
-
-.ingredients li,
-.directions li {
-    margin-bottom: 0.5rem;
-    line-height: 1.5;
     font-size: 0.95em;
+    border-bottom: 1px solid #3a3a3a;
+    position: relative;
+    padding-left: 2em;
 }
 
-/* Error messages */
-.recipe p {
-    padding: 1rem;
-    color: #ccc;
+.recipe .directions li:last-child {
+    border-bottom: none;
+}
+
+.recipe .directions li:before {
+    content: counter(step-counter);
+    color: #22c55e;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 1.5em;
     text-align: center;
 }
 
-.recipe p[style*="color: red"] {
-    color: #fca5a5 !important;
-    background-color: rgba(220, 38, 38, 0.1);
-    border-left: 3px solid #dc2626;
+.recipe p {
+    color: #ccc;
+    text-align: center;
+    padding: 10px 0;
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 15px;
@@ -266,7 +259,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 1.8em;
@@ -281,13 +273,7 @@ footer a:hover {
         padding: 15px;
     }
 
-    .hero .nav-links {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .ingredients,
-    .directions {
-        padding: 1rem;
+    .recipe {
+        padding: 15px;
     }
 }
