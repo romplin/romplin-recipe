@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Romplin Recipe",
+  "name": "romplin-recipe",
   "version": "1.0.0",
   "description": "Strip recipe sites down to just ingredients and directions.",
   "icons": {

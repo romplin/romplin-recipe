@@ -223,7 +223,7 @@
         <style>${READER_CSS}</style>
 
         <header id="rr-header">
-          <span id="rr-brand">🍴 Romplin Recipe</span>
+          <span id="rr-brand">🍴 romplin-recipe</span>
           <button id="rr-close">✕ Exit Reader</button>
         </header>
 

@@ -2,7 +2,7 @@
 // Clears the reader-active flag when the popup signals the reader was closed inline.
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("Romplin Recipe installed.");
+  console.log("romplin-recipe installed.");
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

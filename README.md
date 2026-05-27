@@ -1,10 +1,10 @@
-# Romplin Recipe
+# romplin-recipe
 
 A Manifest V3 Chrome extension that strips recipe pages down to just what matters: **ingredients, directions, and photos**. No ads, no life stories, no pop-ups.
 
 ## How it works
 
-1. Click the **Romplin Recipe** toolbar icon on any recipe page
+1. Click the **romplin-recipe** toolbar icon on any recipe page
 2. Hit **Extract Recipe**
 3. The page is replaced with a clean reader view
 4. Check off ingredients as you go, follow numbered steps
