@@ -8,38 +8,55 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: #fff;
   color: #111;
-  width: 280px;
-  min-height: 120px;
+  width: 260px;
 }
 
 .container {
-  padding: 16px;
+  padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-h1 {
-  font-size: 16px;
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.brand {
+  font-size: 14px;
   font-weight: 600;
+  color: #111;
 }
 
-#status {
-  font-size: 13px;
-  color: #555;
+.status {
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  line-height: 1.4;
 }
 
-#action-btn {
-  padding: 8px 14px;
-  background: #1a73e8;
-  color: #fff;
+.status.idle    { background: #f5f5f5; color: #666; }
+.status.found   { background: #e8f5e9; color: #2e7d32; }
+.status.error   { background: #fdecea; color: #c62828; }
+.status.active  { background: #e3f2fd; color: #1565c0; }
+
+.btn {
+  padding: 9px 14px;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  align-self: flex-start;
+  transition: background 0.15s;
 }
 
-#action-btn:hover {
-  background: #1558b0;
-}
+.btn.primary          { background: #222; color: #fff; }
+.btn.primary:hover    { background: #444; }
+.btn.ghost            { background: #f0f0f0; color: #333; }
+.btn.ghost:hover      { background: #e0e0e0; }
+
+.hidden { display: none; }

@@ -1,13 +1,14 @@
-// Background service worker (MV3)
-// Runs as an event-driven worker — no persistent state between events.
+// Background service worker
+// Clears the reader-active flag when the popup signals the reader was closed inline.
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log("Romplin Recipe installed.");
 });
 
-// Example: listen for messages from popup or content scripts
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log("Background received:", message, "from", sender);
+  if (message.action === "readerClosed" && sender.tab?.id) {
+    chrome.storage.session.remove(`rr_active_${sender.tab.id}`);
+  }
   sendResponse({ ok: true });
-  return true; // keep channel open for async response
+  return true;
 });

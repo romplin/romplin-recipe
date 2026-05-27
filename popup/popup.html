@@ -2,15 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Romplin Recipe</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
     <div class="container">
-      <h1>Romplin Recipe</h1>
-      <p id="status">Ready.</p>
-      <button id="action-btn">Go</button>
+      <div class="header">
+        <img src="../icons/icon32.png" alt="" />
+        <span class="brand">Romplin Recipe</span>
+      </div>
+      <div id="status" class="status idle">Detect a recipe on this page.</div>
+      <button id="extract-btn" class="btn primary">Extract Recipe</button>
+      <button id="restore-btn" class="btn ghost hidden">Restore Page</button>
     </div>
     <script src="popup.js"></script>
   </body>
