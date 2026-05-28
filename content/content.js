@@ -288,9 +288,9 @@
 
     #rr-root {
       font-family: Georgia, "Times New Roman", serif;
-      background: #fafaf8;
+      background: #111111;
       min-height: 100vh;
-      color: #1a1a1a;
+      color: #f0f0f0;
     }
 
     #rr-header {
@@ -300,8 +300,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 24px;
-      background: #fff;
-      border-bottom: 1px solid #e5e5e5;
+      background: #141414;
+      border-bottom: 1px solid #2a2a2a;
       z-index: 9999;
     }
 
@@ -309,20 +309,22 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 14px;
       font-weight: 600;
-      color: #333;
+      color: #4ade80;
     }
 
     #rr-close {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 12px;
-      padding: 5px 12px;
-      background: #111;
-      color: #fff;
+      font-weight: 600;
+      padding: 5px 14px;
+      background: #4ade80;
+      color: #0a0a0a;
       border: none;
       border-radius: 20px;
       cursor: pointer;
+      transition: background 0.15s;
     }
-    #rr-close:hover { background: #444; }
+    #rr-close:hover { background: #22c55e; }
 
     #rr-main {
       max-width: 720px;
@@ -342,6 +344,7 @@
       font-size: clamp(24px, 4vw, 36px);
       line-height: 1.2;
       font-weight: 700;
+      color: #f0f0f0;
       margin-bottom: 14px;
     }
 
@@ -355,15 +358,16 @@
     #rr-meta span {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 12px;
-      background: #f0ede8;
-      color: #555;
+      background: #1e1e1e;
+      color: #888;
+      border: 1px solid #2a2a2a;
       padding: 4px 10px;
       border-radius: 20px;
     }
 
     #rr-desc {
       font-size: 15px;
-      color: #555;
+      color: #888;
       line-height: 1.6;
       margin-bottom: 32px;
       font-style: italic;
@@ -379,10 +383,10 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #888;
+      color: #4ade80;
       margin-bottom: 16px;
       padding-bottom: 8px;
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid #2a2a2a;
     }
 
     /* Ingredients */
@@ -402,25 +406,26 @@
       cursor: pointer;
       transition: background 0.1s;
     }
-    .rr-ing-item label:hover { background: #f0ede8; }
+    .rr-ing-item label:hover { background: #1e1e1e; }
 
     .rr-ing-item input[type="checkbox"] {
       margin-top: 2px;
       width: 16px;
       height: 16px;
       flex-shrink: 0;
-      accent-color: #555;
+      accent-color: #4ade80;
       cursor: pointer;
     }
 
     .rr-ing-item input:checked + span {
       text-decoration: line-through;
-      color: #aaa;
+      color: #444;
     }
 
     .rr-ing-item span {
       font-size: 16px;
       line-height: 1.5;
+      color: #f0f0f0;
     }
 
     /* Instructions */
@@ -441,8 +446,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 12px;
       font-weight: 700;
-      color: #fff;
-      background: #222;
+      color: #0a0a0a;
+      background: #4ade80;
       width: 24px;
       height: 24px;
       border-radius: 50%;
@@ -456,17 +461,18 @@
     .rr-step-text {
       font-size: 16px;
       line-height: 1.65;
+      color: #f0f0f0;
     }
 
     .rr-section-header {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 13px;
       font-weight: 600;
-      color: #555;
+      color: #4ade80;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       padding: 4px 0;
-      border-bottom: 1px dashed #ddd;
+      border-bottom: 1px dashed #2a2a2a;
     }
   `;
 })();

@@ -6,8 +6,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #fff;
-  color: #111;
+  background: #141414;
+  color: #f0f0f0;
   width: 260px;
 }
 
@@ -23,13 +23,13 @@ body {
   align-items: center;
   gap: 8px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #2a2a2a;
 }
 
 .brand {
   font-size: 14px;
   font-weight: 600;
-  color: #111;
+  color: #4ade80;
 }
 
 .status {
@@ -39,24 +39,24 @@ body {
   line-height: 1.4;
 }
 
-.status.idle    { background: #f5f5f5; color: #666; }
-.status.found   { background: #e8f5e9; color: #2e7d32; }
-.status.error   { background: #fdecea; color: #c62828; }
-.status.active  { background: #e3f2fd; color: #1565c0; }
+.status.idle  { background: #1e1e1e; color: #888; }
+.status.found { background: #14290f; color: #4ade80; }
+.status.error { background: #2a1212; color: #f87171; }
+.status.active{ background: #1a2e1a; color: #86efac; }
 
 .btn {
   padding: 9px 14px;
   border: none;
   border-radius: 6px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
 }
 
-.btn.primary          { background: #222; color: #fff; }
-.btn.primary:hover    { background: #444; }
-.btn.ghost            { background: #f0f0f0; color: #333; }
-.btn.ghost:hover      { background: #e0e0e0; }
+.btn.primary        { background: #4ade80; color: #0a0a0a; }
+.btn.primary:hover  { background: #22c55e; }
+.btn.ghost          { background: #2a2a2a; color: #aaa; }
+.btn.ghost:hover    { background: #333; color: #f0f0f0; }
 
 .hidden { display: none; }
