@@ -83,6 +83,12 @@
   function normalizeInstructions(raw) {
     if (!raw) return [];
     if (typeof raw === "string") return splitSentences(raw);
+    // Single object (e.g. ItemList or HowToStep) — unwrap before processing.
+    if (!Array.isArray(raw)) {
+      if (raw.itemListElement) return normalizeInstructions(raw.itemListElement);
+      if (raw.text) return splitSentences(raw.text);
+      return raw.name ? [raw.name] : [];
+    }
     return raw.flatMap(item => {
       if (typeof item === "string") return [item];
       if (item["@type"] === "HowToStep") return [item.text || item.name || ""];
@@ -91,6 +97,7 @@
         const header = item.name ? [`§ ${item.name}`] : [];
         return [...header, ...sectionSteps];
       }
+      if (item.itemListElement) return normalizeInstructions(item.itemListElement);
       return [item.text || item.name || ""];
     }).filter(Boolean);
   }
@@ -144,7 +151,7 @@
     );
     const ingItems = new Set();
     ingContainers.forEach(el => {
-      const items = el.querySelectorAll("li, p, span");
+      const items = el.querySelectorAll("li, p");
       if (items.length) {
         items.forEach(li => { const t = li.textContent.trim(); if (t) ingItems.add(t); });
       } else {
@@ -161,7 +168,7 @@
     );
     const dirItems = [];
     dirContainers.forEach(el => {
-      const items = el.querySelectorAll("li, p, [class*='step']");
+      const items = el.querySelectorAll("li, p");
       if (items.length) {
         items.forEach(li => { const t = li.textContent.trim(); if (t) dirItems.push(t); });
       } else {
