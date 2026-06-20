@@ -1,6 +1,10 @@
 (() => {
   "use strict";
 
+  // Guard: if already injected, don't re-run (preserves originalBodyHTML state).
+  if (window.__rrLoaded) return;
+  window.__rrLoaded = true;
+
   let originalBodyHTML = null;
   let originalTitle    = null;
 

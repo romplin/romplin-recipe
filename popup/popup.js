@@ -46,6 +46,12 @@ extractBtn.addEventListener("click", async () => {
     if (!tab) { setStatus("No active tab found.", "error"); return; }
     setStatus("Extracting…", "idle");
 
+    // Inject content script on demand; guard in content.js prevents double-injection.
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ["content/content.js"]
+    });
+
     chrome.tabs.sendMessage(tab.id, { action: "extractRecipe" }, async (response) => {
       if (chrome.runtime.lastError) {
         setStatus("Could not reach page. Try refreshing.", "error");
